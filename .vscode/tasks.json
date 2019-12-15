@@ -5,17 +5,18 @@
     "type": "shell",
     "problemMatcher": {
         "owner": "cpp",
-        "fileLocation": ["relative", "${workspaceFolder}"],
+        "fileLocation":"absolute",
         "pattern": {
-            "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
-            "file": 1,
-            "line": 2,
-            "column": 3,
-            "severity": 4,
+            "regexp": "\\[(Warning|Error)\\] (.*):(\\d+):(\\d+):(.*)",
+            "severity": 1,
+            "file": 2,
+            "line": 3,
+            "column": 4,
             "message": 5
         }
     },
     "presentation": {
+        "clear": true,
         "echo": true,
         "reveal": "always",
         "focus": false,
@@ -27,7 +28,7 @@
             "label": "compile release",
             "group": "build",
             "command": "mbed",
-            "args": ["compile", "--source", ".", "--source",  "../../mbed-os", "--source", "../../libs", "--source", "../../drivers", "--source", "../../custom_targets", "--source", "../../components", "--profile", "release", "-t", "GCC_ARM"]
+            "args": ["compile", "--build", "../../BUILD/${workspaceFolderBasename}/Release", "--source", ".", "--source",  "../../mbed-os", "--source", "../../libs", "--source", "../../drivers", "--source", "../../custom_targets", "--source", "../../components", "--profile", "release"]
         },
         {
             "label": "compile debug",
@@ -36,13 +37,18 @@
                 "isDefault": true
             },
             "command": "mbed",
-            "args": ["compile", "--source", ".", "--source",  "../../mbed-os", "--source", "../../libs", "--source", "../../drivers", "--source", "../../custom_targets", "--source", "../../components", "--profile", "debug", "-t", "GCC_ARM"]
+            "args": ["compile", "--build", "../../BUILD/${workspaceFolderBasename}/Debug", "--source", ".", "--source",  "../../mbed-os", "--source", "../../libs", "--source", "../../drivers", "--source", "../../custom_targets", "--source", "../../components", "--profile", "debug"]
         },
         {
             "label": "compile develop",
             "group": "build",
             "command": "mbed",
-            "args": ["compile", "--source", ".", "--source",  "../../mbed-os", "--source", "../../libs", "--source", "../../drivers", "--source", "../../custom_targets", "--source", "../../components", "--profile", "develop", "-t", "GCC_ARM"]
-        }
+            "args": ["compile", "--build", "../../BUILD/${workspaceFolderBasename}/Develop", "--source", ".", "--source",  "../../mbed-os", "--source", "../../libs", "--source", "../../drivers", "--source", "../../custom_targets", "--source", "../../components", "--profile", "develop"]
+        },
+        {
+            "label": "echo",
+            "type": "shell",
+            "command": "echo \n\rworksspaceFolder: ${workspaceFolder}\n\rworkspaceFolderBasename: ${workspaceFolderBasename}"
+          }
     ]
 }

@@ -17,7 +17,7 @@ limitations under the License.
 
 from os.path import join, abspath, dirname
 
-#ROOT = abspath(join(dirname(__file__), "."))
+ROOT = abspath(join(dirname(__file__), "."))
 
 ##############################################################################
 # Build System Settings
@@ -28,7 +28,7 @@ from os.path import join, abspath, dirname
 #ARM_PATH = "C:/Program Files/ARM"
 
 # GCC ARM
-#GCC_ARM_PATH = ""
+#GCC_ARM_PATH = "d:/temp"
 
 # IAR
 #IAR_PATH = "C:/Program Files (x86)/IAR Systems/Embedded Workbench 7.0/arm"
@@ -42,4 +42,4 @@ from os.path import join, abspath, dirname
 #MBED_ORG_USER = ""
 
 # Print compiler warnings and errors as link format
-#PRINT_COMPILER_OUTPUT_AS_LINK = False
+PRINT_COMPILER_OUTPUT_AS_LINK = True
