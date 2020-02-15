@@ -2,7 +2,11 @@
     "target_overrides": {
         "*": {
             "platform.stdio-baud-rate": 115200,
-            "platform.cpu-stats-enabled": true
-        }
+            "platform.cpu-stats-enabled": true,
+            "platform.stdio-convert-newlines": true,
+            "platform.all-stats-enabled": true,
+            "mbed-trace.enable": 0,
+            "lwip.socket-max": 8,
+            "lwip.tcp-socket-max": 8                  }
     }
 }
