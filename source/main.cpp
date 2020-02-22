@@ -1,6 +1,5 @@
 #include "mbed.h"
 #include <string>
-#include "../../mbed-os/features/lwipstack/LWIPStack.h"
 #include "Adafruit_ST7735.h"
 
 #define STRINGIFY(x) #x
@@ -61,55 +60,7 @@ void stateChanged()
 
 }
 
-struct tcp_pcb* testpcb;
-struct tcp_pcb* echopcb;
-
-err_t tcpAcceptCallback(void *arg, struct tcp_pcb *newpcb, err_t err)
-{
-    (void)arg;
-    (void)err;
-    (void)newpcb;
-    printf("newpcb: %08lX\r\n", (uint32_t)testpcb);
-    printf("TCP Accept Err: %i\r\n", err);
-    echopcb = newpcb;
-    return 0;
-}
-
-void tcp_echo_init(void){
-  
-    printf("creating tcp echo test\r\n");
-    testpcb = tcp_new();
-    printf("testpcb: %08lX\r\n", (uint32_t)testpcb);
-
-    //tcp_err(testpcb, tcpErrorHandler);
-    //tcp_recv(testpcb, tcpRecvCallback);
-    //tcp_sent(testpcb, tcpSentCallback);
-
-    static ip4_addr_t ip;
-    IP4_ADDR(&ip, 0,0,0,0);
-
-    err_t err;
-    err = tcp_bind(testpcb, &ip, 666);
-    printf("TCP Bind Err: %i\r\n", err);
-
-    if (ERR_OK != err){
-      return;
-    }
-    
-    // The tcp_listen() function returns a new connection identifier, 
-    // and the one passed as an argument to the function will be deallocated.
-    testpcb = tcp_listen_with_backlog_and_err(testpcb, 1, &err);
-    printf("testpcb: %08lX\r\n", (uint32_t)testpcb);
-    printf("TCP Listen Err: %i\r\n", err);
-    if (NULL == testpcb){
-      return;
-    }
-    
-    tcp_accept(testpcb, tcpAcceptCallback);
-    
-}
-
-void onConnect() 
+void onEthIfUp() 
 {
     network->get_ip_address(&mySocketAddress);
     printf("my IP is: %s\n", mySocketAddress.get_ip_address());
@@ -131,7 +82,7 @@ void onEthIfEvent(nsapi_event_t evt, intptr_t value)
                 display.printf("EthIF global up     ");
                 display.setTextColor(ST7735_YELLOW, ST7735_BLACK);
                 printf("EthIF global up\n");
-                onConnect();
+                onEthIfUp();
                 display.setCursor(10, 20);
                 display.printf(mySocketAddress.get_ip_address());
                 break;
@@ -193,7 +144,6 @@ int main() {
     sockServer.bind(9099);
     sockServer.listen(5);
 
-//    tcp_echo_init();
     ThisThread::sleep_for(60000);
     network->disconnect();
     
