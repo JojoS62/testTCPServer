@@ -2,11 +2,13 @@
     "target_overrides": {
         "*": {
             "platform.stdio-baud-rate": 115200,
-            "platform.cpu-stats-enabled": true,
-            "platform.stdio-convert-newlines": true,
-            "platform.all-stats-enabled": true,
-            "mbed-trace.enable": 0,
+            "platform.stdio-convert-newlines": true, 
             "lwip.socket-max": 8,
-            "lwip.tcp-socket-max": 8                  }
+            "lwip.tcp-socket-max": 8                  
+        },
+        "DEVEBOX_F407VG": {
+            "mbed-trace.enable": "1",
+            "stm32-emac.eth-phy-address" : 1
+        }
     }
 }
