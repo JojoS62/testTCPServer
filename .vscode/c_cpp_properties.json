@@ -1,6 +1,7 @@
 {
     "configurations": [
         {
+            "name": "Win32",
             "forcedInclude": [
                 "${workspaceFolder}/../../BUILD/${workspaceFolderBasename}/DEBUG/mbed_config.h"
             ],
@@ -183,7 +184,7 @@
                 "${workspaceFolder}/../../mbed-os/features/mbedtls/platform/inc/*",
                 "${workspaceFolder}/../../mbed-os/features/mbedtls/targets/TARGET_STM/*",
                 "${workspaceFolder}/../../mbed-os/features/mbedtls/targets/TARGET_STM/TARGET_STM32F4/*",
-                "${workspaceFolder}/../../mbed-os/features/netsocket",
+                "${workspaceFolder}/../../mbed-os/features/netsocket/",
                 "${workspaceFolder}/../../mbed-os/features/netsocket/cellular/*",
                 "${workspaceFolder}/../../mbed-os/features/netsocket/emac-drivers/TARGET_STM",
                 "${workspaceFolder}/../../mbed-os/features/netsocket/emac-drivers/TARGET_STM/TARGET_STM32F4/*",
