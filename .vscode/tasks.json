@@ -124,6 +124,19 @@
             ]
         },
         {
+            "label": "show targets",
+            "group": "none",
+            "command": "mbed",
+            "args": [
+                "compile",
+                "-S",
+                "--source",
+                ".",
+                "--source",
+                "../../mbed-os"
+            ]
+        },
+        {
             "label": "echo",
             "type": "shell",
             "command": "echo \n\rworksspaceFolder: ${workspaceFolder}\n\rworkspaceFolderBasename: ${workspaceFolderBasename}"
