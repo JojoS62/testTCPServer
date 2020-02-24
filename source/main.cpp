@@ -10,43 +10,7 @@ SocketAddress mySocketAddress;
 NetworkInterface* network;
 Adafruit_ST7735 display(PB_15, PB_14, PB_10, PB_9, PE_4, PE_5);
 
-void stateChanged();
-
-void startServer()
-{
-    nsapi_error_t error = NSAPI_ERROR_OK;
-    sockServer = new TCPSocket;
-    sockServer->open(network);
-    if (error != NSAPI_ERROR_OK) {
-        printf("sockServer open error: %i\n", error);
-    }
-
-    sockServer->set_blocking(false);
-    sockServer->sigio(callback(stateChanged));
-    
-    error = sockServer->bind(9099);
-    if (error != NSAPI_ERROR_OK) {
-        printf("sockServer bind error: %i\n", error);
-    }
-    error = sockServer->listen(1);
-    if (error != NSAPI_ERROR_OK) {
-        printf("sockServer listen error: %i\n", error);
-    }
-    
-    printf("server started\n");
-}
-
-void stopServer()
-{
-    if (sockServer) {
-        sockServer->close();
-        delete sockServer;
-        sockServer = nullptr;
-        printf("server stopped\n");
-    }
-}
-
-void stateChanged() 
+void serverStateChanged() 
 {
     printf("sockServer state changed\n");
     if (sockServer == nullptr) {
@@ -65,6 +29,44 @@ void stateChanged()
 
         sockClient->close();
         printf("client connection closed\n");
+    }
+}
+
+void startServer()
+{
+    nsapi_error_t error = NSAPI_ERROR_OK;
+    sockServer = new TCPSocket;
+    
+    sockServer->open(network);
+    if (error != NSAPI_ERROR_OK) {
+        printf("sockServer open error: %i\n", error);
+    }
+
+    sockServer->set_blocking(false);
+    int optval = 1;
+    sockServer->setsockopt(NSAPI_SOCKET, NSAPI_REUSEADDR,  &optval, sizeof(optval));
+    sockServer->sigio(callback(serverStateChanged));
+    
+    error = sockServer->bind(9099);
+    if (error != NSAPI_ERROR_OK) {
+        printf("sockServer bind error: %i\n", error);
+    }
+
+    error = sockServer->listen(1);
+    if (error != NSAPI_ERROR_OK) {
+        printf("sockServer listen error: %i\n", error);
+    }
+    
+    printf("server started\n");
+}
+
+void stopServer()
+{
+    if (sockServer) {
+        sockServer->close();
+        delete sockServer;
+        sockServer = nullptr;
+        printf("server stopped\n");
     }
 }
 
@@ -146,6 +148,7 @@ int main() {
     if (!network) {
         printf("Cannot connect to the network, see serial output\n");
     } 
+
     network->set_blocking(false);
     network->attach(callback(onEthIfEvent));
     network->connect();
@@ -160,6 +163,12 @@ int main() {
                 break;
             case 'c': 
                 network->connect();
+                break;
+            case 's': 
+                stopServer();
+                break;
+            case 'r':
+                startServer();
                 break;
         }
 
