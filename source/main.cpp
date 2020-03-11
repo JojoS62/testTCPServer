@@ -1,5 +1,6 @@
 #include "mbed.h"
 #include <string>
+#include "Adafruit_ST7735.h"
 
 TCPSocket *sockServer;
 SocketAddress mySocketAddress;
