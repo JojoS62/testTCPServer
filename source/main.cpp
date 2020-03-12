@@ -1,5 +1,6 @@
 #include "mbed.h"
 #include <string>
+#include "mbed-trace/mbed_trace.h"
 #include "Adafruit_ST7735.h"
 
 TCPSocket *sockServer;
@@ -109,6 +110,18 @@ int main() {
     printf("Hello from "  MBED_STRINGIFY(TARGET_NAME) "\n");
     printf("Mbed OS version: %d.%d.%d\n", MBED_MAJOR_VERSION, MBED_MINOR_VERSION, MBED_PATCH_VERSION);
     printf("test TCPServer\n");
+    
+    mbed_trace_init();
+    
+    // local display stuff
+    display.initS();
+    display.setRotation(3);
+    display.fillScreen(ST7735_BLACK);
+    display.drawRect(0, 0, 160, 80, ST7735_BLUE);
+    
+    display.setTextColor(ST7735_GREEN);
+    display.setCursor(10, 10);
+    display.printf("Hello");
 
     // Connect to the network with the default networking interface
     // using non blocking, async event driven
