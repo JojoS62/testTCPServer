@@ -1,4 +1,5 @@
 #include "mbed.h"
+#include "mbed-trace/mbed_trace.h"
 #include "Adafruit_ST7735.h"
 
 #define STRINGIFY(x) #x
@@ -130,7 +131,9 @@ int main() {
     printf("Hello from "  TOSTRING(TARGET_NAME) "\n");
     printf("Mbed OS version: %d.%d.%d\n", MBED_MAJOR_VERSION, MBED_MINOR_VERSION, MBED_PATCH_VERSION);
     printf("test TCPServer\n");
-
+    
+    mbed_trace_init();
+    
     // local display stuff
     display.initS();
     display.setRotation(3);
