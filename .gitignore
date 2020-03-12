@@ -1,3 +1,4 @@
 /.vscode
-*.code-workspace
-*.pyc
+/.code-workspace
+/.pyc
+config-options.txt
