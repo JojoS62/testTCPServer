@@ -1,9 +1,6 @@
 #include "mbed.h"
 #include <string>
 
-#define STRINGIFY(x) #x
-#define TOSTRING(x) STRINGIFY(x)
-
 TCPSocket *sockServer;
 SocketAddress mySocketAddress;
 NetworkInterface* network;
@@ -108,7 +105,7 @@ void onEthIfEvent(nsapi_event_t evt, intptr_t value)
 }
 
 int main() {
-    printf("Hello from "  TOSTRING(TARGET_NAME) "\n");
+    printf("Hello from "  MBED_STRINGIFY(TARGET_NAME) "\n");
     printf("Mbed OS version: %d.%d.%d\n", MBED_MAJOR_VERSION, MBED_MINOR_VERSION, MBED_PATCH_VERSION);
     printf("test TCPServer\n");
 
