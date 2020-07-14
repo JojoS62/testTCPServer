@@ -1,4 +1,5 @@
 #include "mbed.h"
+#include <string>
 
 #define STRINGIFY(x) #x
 #define TOSTRING(x) STRINGIFY(x)
@@ -141,7 +142,7 @@ int main() {
                 break;
         }
 
-        ThisThread::sleep_for(10);
+        ThisThread::sleep_for(10ms);
     }
 }
 
