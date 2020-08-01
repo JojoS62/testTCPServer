@@ -6,6 +6,7 @@
 TCPSocket *sockServer;
 SocketAddress mySocketAddress;
 NetworkInterface* network;
+Adafruit_ST7735 display(PB_15, PB_14, PB_10, PB_9, PE_4, PE_5);
 
 void serverStateChanged() 
 {
