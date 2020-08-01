@@ -78,34 +78,53 @@ void onEthIfDown()
     stopServer();
 }
 
-//    virtual void attach(mbed::Callback<void(nsapi_event_t, intptr_t)> status_cb);
 void onEthIfEvent(nsapi_event_t evt, intptr_t value)
 {
     if (NSAPI_EVENT_CONNECTION_STATUS_CHANGE == evt) {
+        display.setCursor(10, 30);
         switch (value) {
             case NSAPI_STATUS_LOCAL_UP:
+                display.setTextColor(ST7735_GREEN, ST7735_BLACK);
+                display.printf("EthIF local up      ");
                 printf("EthIF local up\n");
                 break;
             case NSAPI_STATUS_GLOBAL_UP:
+
+                display.setTextColor(ST7735_GREEN, ST7735_BLACK);
+                display.printf("EthIF global up     ");
+                display.setTextColor(ST7735_YELLOW, ST7735_BLACK);
                 printf("EthIF global up\n");
                 network->get_ip_address(&mySocketAddress);
                 printf("my IP is: %s\n", mySocketAddress.get_ip_address());
                 onEthIfUp();
+                display.setCursor(10, 20);
+                display.printf(mySocketAddress.get_ip_address());
                 break;
             case NSAPI_STATUS_DISCONNECTED:
+                display.setTextColor(ST7735_RED, ST7735_BLACK);
+                display.printf("EthIF disconnected  ");
                 printf("EthIF disconnected\n");
+                display.setCursor(10, 20);
+                display.printf("                ");
                 onEthIfDown();
                 break;
             case NSAPI_STATUS_CONNECTING:
                 onEthIfDown();
+                display.setTextColor(ST7735_CYAN, ST7735_BLACK);
+                display.printf("EthIF connecting    ");
                 printf("EthIF connecting\n");
+                display.setCursor(10, 20);
+                display.printf("                ");
                 break;
             case NSAPI_STATUS_ERROR_UNSUPPORTED:
+                display.setTextColor(ST7735_RED, ST7735_BLACK);
+                display.printf("status unknown      ");
                 printf("EthIF status unknown\n");
                 break;
         }
     }
 }
+
 
 int main() {
     printf("Hello from "  MBED_STRINGIFY(TARGET_NAME) "\n");
