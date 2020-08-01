@@ -8,9 +8,8 @@
         },
         "DEVEBOX_F407VG": {
             "mbed-trace.enable": "1",
-            "stm32-emac.thread-stacksize" : 1024,
             "stm32-emac.eth-phy-address" : 1,
-            "stm32-emac.eth-phy-AutoNegotiation" : "ETH_AUTONEGOTIATION_DISABLE"        
+            "stm32-emac.eth-phy-AutoNegotiation" : "ETH_AUTONEGOTIATION_ENABLE"        
         }
     }
 }
