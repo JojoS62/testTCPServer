@@ -2,11 +2,13 @@
 #include <string>
 #include "mbed-trace/mbed_trace.h"
 #include "Adafruit_ST7735.h"
+#include "Arduino_ST7789_Fast.h"
 
 TCPSocket *sockServer;
 SocketAddress mySocketAddress;
 NetworkInterface* network;
-Adafruit_ST7735 display(PB_15, PB_14, PB_10, PB_9, PE_4, PE_5);
+//Adafruit_ST7735 display(PB_15, PB_14, PB_10, PB_9, PE_4, PE_5);
+Arduino_ST7789 display(PB_15, PB_14, PB_10, PB_9, PE_4, PE_5);
 
 void serverStateChanged() 
 {
@@ -134,8 +136,8 @@ int main() {
     mbed_trace_init();
     
     // local display stuff
-    display.initS();
-    display.setRotation(3);
+    display.begin();
+    display.setRotation(2);
     display.fillScreen(ST7735_BLACK);
     display.drawRect(0, 0, 160, 80, ST7735_BLUE);
     
